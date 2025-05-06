@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Mencapai 1Jt pertama dalam 1 minggu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      background-color: #1a1a1a;
+      font-family: 'Press Start 2P', monospace;
+      color: #ffa500;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      color: #ff8c00;
+      margin-bottom: 30px;
+    }
+
+    .language-select {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .stage {
+      background-color: #333;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px dashed #ffa500;
+      border-radius: 10px;
+    }
+
+    .stage h2 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #ffae42;
+    }
+
+    .stage p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #fff3e0;
+    }
+
+    .btn {
+      background: linear-gradient(to bottom, #ffa500, #ff8c00);
+      border: none;
+      color: black;
+      padding: 10px 20px;
+      font-size: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .btn:hover {
+      filter: brightness(1.2);
+    }
+
+    #animationContainer {
+      margin-top: 30px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .thumb {
+      font-size: 50px;
+      animation: pop 0.6s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 10px;
+      color: #fff7e6;
+      padding: 0 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 10px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="language-select">
+    <label for="lang">Language: </label>
+    <select id="lang" onchange="switchLanguage()">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <h1 id="title">Mencapai 1Jt pertama dalam 1 minggu</h1>
+
+  <div id="content"></div>
+
+  <button class="btn" onclick="mulai()">Ayo Mulai Sekarang</button>
+
+  <div id="animationContainer">
+    <div class="thumb">👍</div>
+    <div id="message"></div>
+  </div>
+
+  <footer>©madcarlotte</footer>
+
+  <script>
+    const stages = {
+      id: [
+        { title: "Hari 1: Riset Peluang", text: "Gunakan YouTube, TikTok, atau grup Facebook untuk cari ide usaha digital atau jualan online yang sedang viral." },
+        { title: "Hari 2: Siapkan Alat", text: "Pasang aplikasi penting seperti Canva, Kinemaster, Tokopedia/Shopee, dan WhatsApp Bisnis. Persiapkan akun dan branding." },
+        { title: "Hari 3: Bangun Produk/Service", text: "Jualan produk digital (eBook, preset, jasa edit) atau dropship barang. Ambil dari supplier terpercaya di marketplace atau Telegram." },
+        { title: "Hari 4: Mulai Promosi", text: "Buat konten promosi menggunakan HP. Upload ke TikTok, Reels, dan Status WA. Gunakan copywriting dan testimoni untuk menarik minat." },
+        { title: "Hari 5: Scale Up", text: "Gunakan auto-reply WA, iklan murah, dan rutin upload konten. Jualan ke grup, komentar viral, dan forum jual beli." },
+        { title: "Hari 6: Evaluasi & Tingkatkan", text: "Cek produk mana yang laris, tingkatkan kualitas dan stok. Dengarkan feedback dari pembeli. Jangan takut inovasi." },
+        { title: "Hari 7: Nikmati Hasil", text: "Totalin hasil penjualan. Jika konsisten, hasil bisa capai 1 juta atau lebih dalam seminggu. Ulangi dengan produk/jasa baru." }
+      ],
+      en: [
+        { title: "Day 1: Opportunity Research", text: "Use YouTube, TikTok, or Facebook groups to find trending digital business or online selling ideas." },
+        { title: "Day 2: Prepare Tools", text: "Install essential apps like Canva, Kinemaster, Tokopedia/Shopee, and WhatsApp Business. Set up your account and branding." },
+        { title: "Day 3: Build Product/Service", text: "Sell digital products (eBooks, presets, editing services) or dropship physical goods. Get them from trusted suppliers." },
+        { title: "Day 4: Start Promoting", text: "Create promo content using your phone. Upload to TikTok, Reels, and WhatsApp Status. Use copywriting and testimonials." },
+        { title: "Day 5: Scale Up", text: "Use WA auto-reply, cheap ads, and upload regularly. Sell in groups, viral comment sections, and online forums." },
+        { title: "Day 6: Evaluate & Improve", text: "Check which products sell best, improve quality and stock. Listen to customer feedback. Don’t be afraid to innovate." },
+        { title: "Day 7: Enjoy the Result", text: "Count your total income. If consistent, you could earn 1 million+ in a week. Repeat with new products/services." }
+      ]
+    };
+
+    function switchLanguage() {
+      const lang = document.getElementById("lang").value;
+      const content = document.getElementById("content");
+      const title = document.getElementById("title");
+      content.innerHTML = "";
+
+      title.innerText = lang === "id" ? "Mencapai 1Jt pertama dalam 1 minggu" : "Reach Your First 1 Million in a Week";
+
+      stages[lang].forEach(stage => {
+        const stageDiv = document.createElement("div");
+        stageDiv.className = "stage";
+        stageDiv.innerHTML = `<h2>${stage.title}</h2><p>${stage.text}</p>`;
+        content.appendChild(stageDiv);
+      });
+    }
+
+    function mulai() {
+      const container = document.getElementById("animationContainer");
+      const message = document.getElementById("message");
+
+      container.style.opacity = 1;
+      message.innerText = "";
+
+      setTimeout(() => {
+        message.innerText = "Semangatt mencapai 1jt pertama mu, jangan pantang menyerah! Pantau terus TikTok resmi kami @madcarlotte";
+      }, 700);
+    }
+
+    window.onload = switchLanguage;
+  </script>
+</body>
+</html>
